@@ -1,92 +1,39 @@
 package com.imooc.sell.model;
 
+import lombok.Data;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.math.BigDecimal;
+import java.util.Date;
 
 @Table(name = "order_detail")
 @Entity
+@Data
+@DynamicUpdate
 public class OrderDetail {
-
     //详情id
     @Id
     private String detailId;
     //订单id
     private String orderId;
     //类目编号
-    private String categoryType;
+    private Integer categoryType;
     //商品id
     private String productId;
     //商品名称
     private String productName;
     //商品单价
-    private Integer productPrice;
+    private BigDecimal productPrice;
     //商品数量
-    private Integer productCount;
+    private Integer productQuantity;
     //商品小图
     private String productIcon;
+    //创建时间
+    private Date createTime;
+    //更新时间
+    private Date updateTime;
 
-    public String getDetailId() {
-        return detailId;
-    }
-
-    public void setDetailId(String detailId) {
-        this.detailId = detailId;
-    }
-
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
-
-    public String getCategoryType() {
-        return categoryType;
-    }
-
-    public void setCategoryType(String categoryType) {
-        this.categoryType = categoryType;
-    }
-
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public Integer getProductPrice() {
-        return productPrice;
-    }
-
-    public void setProductPrice(Integer productPrice) {
-        this.productPrice = productPrice;
-    }
-
-    public Integer getProductCount() {
-        return productCount;
-    }
-
-    public void setProductCount(Integer productCount) {
-        this.productCount = productCount;
-    }
-
-    public String getProductIcon() {
-        return productIcon;
-    }
-
-    public void setProductIcon(String productIcon) {
-        this.productIcon = productIcon;
-    }
 }

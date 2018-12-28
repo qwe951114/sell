@@ -1,5 +1,6 @@
 package com.imooc.sell.repository;
 
+import com.imooc.sell.enums.ProductStatusEnum;
 import com.imooc.sell.model.ProductInfo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,8 +10,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -32,6 +31,7 @@ public class ProductInfoRepositoryTest {
         productInfo.setProductPrice(new BigDecimal(8.2));
         productInfo.setProductIcon("http://xxxxx.jpg");
         productInfo.setProductStock(10);
+        productInfo.setProductStatus(ProductStatusEnum.DOWN.getCode());
         repository.save(productInfo);
     }
 
