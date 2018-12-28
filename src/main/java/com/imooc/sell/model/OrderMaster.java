@@ -1,11 +1,20 @@
 package com.imooc.sell.model;
 
+import com.imooc.sell.enums.OrderStatusEnum;
+import com.imooc.sell.enums.PayStatusEnum;
+import lombok.Data;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.math.BigDecimal;
+import java.util.Date;
 
 @Entity
 @Table(name = "order_master")
+@Data
+@DynamicUpdate
 public class OrderMaster {
     @Id
     //订单编号
@@ -18,74 +27,15 @@ public class OrderMaster {
     private String buyerAddress;
     //买家微信号
     private String buyerOpenid;
-    //买家总金额
-    private Integer buyerAmount;
-    //订单状态
-    private String orderStatus;
-    //支付状态
-    private String payStatus;
+    //买家总金额(涉及到金额使用BigDecimal的类型)
+    private BigDecimal orderAmount;
+    //订单状态,默认0是新下单
+    private Integer orderStatus = OrderStatusEnum.NEW.getCode();
+    //支付状态,默认 0 是未支付
+    private Integer payStatus = PayStatusEnum.WAIT.getCode();
+    //创建时间
+    private Date createTime;
+    //更新时间
+    private Date updateTime;
 
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
-
-    public String getBuyerName() {
-        return buyerName;
-    }
-
-    public void setBuyerName(String buyerName) {
-        this.buyerName = buyerName;
-    }
-
-    public String getBuyerPhone() {
-        return buyerPhone;
-    }
-
-    public void setBuyerPhone(String buyerPhone) {
-        this.buyerPhone = buyerPhone;
-    }
-
-    public String getBuyerAddress() {
-        return buyerAddress;
-    }
-
-    public void setBuyerAddress(String buyerAddress) {
-        this.buyerAddress = buyerAddress;
-    }
-
-    public String getBuyerOpenid() {
-        return buyerOpenid;
-    }
-
-    public void setBuyerOpenid(String buyerOpenid) {
-        this.buyerOpenid = buyerOpenid;
-    }
-
-    public Integer getBuyerAmount() {
-        return buyerAmount;
-    }
-
-    public void setBuyerAmount(Integer buyerAmount) {
-        this.buyerAmount = buyerAmount;
-    }
-
-    public String getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(String orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
-    public String getPayStatus() {
-        return payStatus;
-    }
-
-    public void setPayStatus(String payStatus) {
-        this.payStatus = payStatus;
-    }
 }
