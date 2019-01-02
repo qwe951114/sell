@@ -42,16 +42,18 @@ public class OrderServiceImplTest {
         orderDTO.setBuyerName("你猜");
         orderDTO.setBuyerOpenid("0000000002");
         orderDTO.setBuyerPhone("15271615854");
+
         //创建一个订单详情对象
         OrderDetail orderDetail =  new OrderDetail();
-       //orderDetail.setProductPrice(new BigDecimal(4.0));
-        //orderDetail.setProductIcon("http://xxxxxx.jpg");
-        //orderDetail.setProductQuantity(4);
         orderDetail.setProductId("001");
         orderDetail.setProductQuantity(5);
+
+        //购物车
         List<OrderDetail> orderDetailList = new ArrayList<OrderDetail>();
         orderDetailList.add(orderDetail);
         orderDTO.setOrderDetailList(orderDetailList);
+
+
         //执行创建订单方法
         OrderDTO orderDTO1 =orderService.create(orderDTO);
         Assert.assertNotEquals(null,orderDetail);
