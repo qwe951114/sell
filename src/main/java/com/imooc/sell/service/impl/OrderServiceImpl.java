@@ -1,6 +1,6 @@
 package com.imooc.sell.service.impl;
 
-import com.imooc.sell.converter.OrderForm2OrderDTOConverter;
+import com.imooc.sell.converter.OrderMaster2OrderDTOConverter;
 import com.imooc.sell.dto.CartDTO;
 import com.imooc.sell.dto.OrderDTO;
 import com.imooc.sell.enums.OrderStatusEnum;
@@ -112,7 +112,7 @@ public class OrderServiceImpl  implements OrderService{
     public OrderDTO cancel(OrderDTO orderDTO) {
         OrderMaster orderMaster = new OrderMaster();
         //判断订单状态
-        if(!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW)){
+        if(!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())){
             log.error("【取消订单】订单状态不正确,orderId={},orderStatus={}",orderDTO.getOrderId(),orderDTO.getOrderStatus());
             throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
         }
@@ -179,7 +179,7 @@ public class OrderServiceImpl  implements OrderService{
     public Page<OrderDTO> findList(String buyerOpenid, Pageable pageable) {
         Page<OrderMaster> orderMasterPage = orderMasterRepository.findByBuyerOpenid(buyerOpenid,pageable);
         //获取orderDTOList
-        List<OrderDTO> orderDTOList = OrderForm2OrderDTOConverter.converList(orderMasterPage.getContent());
+        List<OrderDTO> orderDTOList = OrderMaster2OrderDTOConverter.converList(orderMasterPage.getContent());
         return  new PageImpl<OrderDTO>(orderDTOList,pageable,orderMasterPage.getTotalElements());
     }
 
@@ -193,7 +193,7 @@ public class OrderServiceImpl  implements OrderService{
     @Transactional
     public OrderDTO paid(OrderDTO orderDTO) {
         //1.判断订单状态
-        if(!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW)){
+        if(!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())){
             log.error("【支付订单】订单状态不正确,orderId={},orderStatus={}",orderDTO.getOrderId(),orderDTO.getOrderStatus());
             throw  new SellException(ResultEnum.ORDER_STATUS_ERROR);
         }
@@ -226,7 +226,7 @@ public class OrderServiceImpl  implements OrderService{
     public OrderDTO finish(OrderDTO orderDTO) {
         OrderMaster orderMaster = new OrderMaster();
         //查询订单状态
-        if(!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW)){
+        if(!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode())){
             log.error("【订单状态】 完成订单状态 不正确  orderId ={},orderStatus={}",orderDTO.getOrderId(),orderDTO.getOrderStatus());
             throw  new SellException(ResultEnum.ORDER_STATUS_ERROR);
         }
