@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  */
 
 @Slf4j
-public class OrderForm2OrderDTOConverter {
+public class OrderMaster2OrderDTOConverter {
     /*public static OrderDTO convert()*/
 
     /**

@@ -2,6 +2,7 @@ package com.imooc.sell.service.impl;
 
 import com.imooc.sell.dto.CartDTO;
 import com.imooc.sell.dto.OrderDTO;
+import com.imooc.sell.enums.OrderStatusEnum;
 import com.imooc.sell.model.OrderDetail;
 import org.hibernate.annotations.AttributeAccessor;
 import org.junit.Assert;
@@ -59,10 +60,22 @@ public class OrderServiceImplTest {
         Assert.assertNotEquals(null,orderDetail);
     }
 
+    /**
+     * 测试订单取消
+     * 1.执行取消订单
+     * 2.查看订单库存和订单状态的变化
+     */
     @Test
     public void cancel() {
+        OrderDTO orderDTO = orderService.findOne("154598301711119417");
+        OrderDTO Result  = orderService.cancel(orderDTO);
+        Assert.assertEquals(OrderStatusEnum.CANCEL.getCode(),orderDTO.getOrderStatus());
     }
 
+    /**
+     * 1.查询一个订单
+     * 2.包括主表信息和详情信息
+     */
     @Test
     public void findOne() {
     }
@@ -71,12 +84,21 @@ public class OrderServiceImplTest {
     public void findList() {
     }
 
+    /**
+     * 测试要点:查询支付完成后,订单状态的变化
+     */
     @Test
     public void paid() {
     }
 
+    /**
+     *测试要点:查询订单完结后，测试状态的变化
+     */
     @Test
     public void finish() {
+        OrderDTO orderDTO = orderService.findOne("154598301711119417");
+        OrderDTO Result  = orderService.finish(orderDTO);
+        Assert.assertEquals(OrderStatusEnum.FINISHED.getCode(),orderDTO.getOrderStatus());
     }
 
     @Test
